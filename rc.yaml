@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: proxy
+  labels:
+    name: proxy
+spec:
+  replicas: 4
+  selector:
+    name: proxy
+  template:
+    metadata:
+      labels:
+        name: proxy
+    spec:
+      containers:
+      - name: proxy
+        image: asia.gcr.io/gothic-province-823/proxy:latest
+        command: ["proxy.py", '--hostname', '0.0.0.0']
+        ports:
+        - containerPort: 8899
